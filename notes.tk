@@ -1,0 +1,95 @@
+make test
+make release (increase version in package/manifest.json)
+
+upload zip or packages folder
+
+
+src/background/main.js
+src/background/Settings.js -> SettingsSchema
+
+
+SettingsSchema:
+
+{
+    focus: {
+        duration: 25,
+        timerSound: null,
+        countdown: {
+            host: null,
+            autoclose: true,
+            resolution: [500, 500]
+        },
+        notifications: {
+            desktop: true,
+            tab: true,
+            sound: null
+        }
+    },
+    shortBreak: {
+        duration: 5,
+        timerSound: null,
+        countdown: {
+            host: null,
+            autoclose: true,
+            resolution: [500, 500]
+        },
+        notifications: {
+            desktop: true,
+            tab: true,
+            sound: null
+        }
+    },
+    longBreak: {
+        duration: 15,
+        interval: 4,
+        timerSound: null,
+        countdown: {
+            host: null,
+            autoclose: true,
+            resolution: [500, 500]
+        },
+        notifications: {
+            desktop: true,
+            tab: true,
+            sound: null
+        }
+    },
+    autostart: {
+        time: null,
+    },
+    version: this.version
+}
+
+
+
+Design:
+
+Introduce the concepts of saving tabs during a pomodoro:
+Steps:
+1. Record whenever a new tab is opened or closed
+2. Naming of each pomodoro - creation of context/task
+3. Save all tabs during the end of each pomodoro
+4. Start all tabs during the start of a new pomodoro (for that particular context)
+5. Have multiple contexts/tasks, and able to select/link each pomodoro to each
+
+Schema
+{
+    context: {
+        number: int,
+        description: string,
+        tabs: []
+    }
+
+}
+
+Code:
+where chrome tabs is referenced
+- Chrome.js - layer that interacts with chrome tab object/api
+- Expiration.js - during expiration, chrome tab will pop up displaying expiration text
+- SingletonPage.js -
+
+ExpirationPage -> SingletonPage
+
+Observers.OnExpire
+- new Notification()
+- await ExpirationPage.show();
