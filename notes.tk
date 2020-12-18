@@ -1,3 +1,12 @@
+dev setup
+- install brew
+- brew install npm
+- brew install 
+
+___________________________
+___________________________
+
+
 make test
 make release (increase version in package/manifest.json)
 
