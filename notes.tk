@@ -3,9 +3,15 @@ dev setup
 - brew install npm
 - brew install 
 
+- npm install
+- gem install rubyzip
+- gem install zip
+
 ___________________________
 ___________________________
 
+#If you need to have this software first in your PATH instead consider running: 
+#echo 'export PATH="/usr/local/opt/node@10/bin:$PATH"' >> /Users/tzekangng/.bash_profile
 
 make test
 make release (increase version in package/manifest.json)
