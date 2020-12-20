@@ -101,6 +101,14 @@
     "message": "Feedback",
     "description": "Feedback tab and section header. Shown on the settings page."
   },
+  "register": {
+    "message": "Register",
+    "description": "The New Register Page."
+  },
+  "register_account": {
+    "message": "Create A New Account",
+    "description": "Create A New Account."
+  },
   "focus": {
     "message": "Focus",
     "description": "Focus section header. Shown on the settings page."

@@ -4,6 +4,7 @@ import Options from './Options';
 import Settings from './Settings';
 import History from './History';
 import Feedback from './Feedback';
+import Register from './Register';
 import M from '../Messages';
 
 Vue.use(Router);
@@ -37,6 +38,12 @@ const router = new Router({
           name: 'feedback',
           component: Feedback,
           meta: { title: M.feedback }
+        },
+        {
+          path: 'register',
+          name: 'register',
+          component: Register,
+          meta: { title: M.register }
         }
       ]
     }

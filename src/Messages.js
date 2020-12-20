@@ -462,6 +462,12 @@ class Messages
   get reception_bell() {
     return chrome.i18n.getMessage('reception_bell', []);
   }
+  get register() {
+    return chrome.i18n.getMessage('register', []);
+  }
+  get register_account() {
+    return chrome.i18n.getMessage('register_account', []);
+  }
   get release_notes() {
     return chrome.i18n.getMessage('release_notes', []);
   }
