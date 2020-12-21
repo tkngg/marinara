@@ -309,30 +309,30 @@ function createPomodoroMenu(timer) {
 
   let inactive = new Menu(['browser_action'],
     new MenuGroup(
-      startCycle,
+      // startCycle,
       startFocus,
       startShortBreak,
-      startLongBreak
+      // startLongBreak
     ),
     new MenuGroup(
-      viewHistory
+      // viewHistory
     )
   );
 
   let active = new Menu(['browser_action'],
     new MenuGroup(
       pause,
-      resume,
+      // resume,
       stop,
       new RestartTimerParentMenu(
         startFocus,
         startShortBreak,
-        startLongBreak
+        // startLongBreak
       ),
-      startCycle
+      // startCycle
     ),
     new MenuGroup(
-      viewHistory
+      // viewHistory
     )
   );
 

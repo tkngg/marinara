@@ -3,13 +3,13 @@
     <div class="header">
       <div class="inner">
         <div>
-          <img src="/images/48.png">
+          <!-- <img src="/images/brain5.png"> -->
           <h1>{{ M.marinara_pomodoro_assistant }}</h1>
         </div>
         <div class="tab-bar">
           <router-link :to="{ name: 'settings' }">{{ M.settings }}</router-link>
           <router-link :to="{ name: 'history' }">{{ M.history }}</router-link>
-          <router-link :to="{ name: 'feedback' }">{{ M.feedback }}</router-link>
+          <!-- <router-link :to="{ name: 'feedback' }">{{ M.feedback }}</router-link> -->
           <router-link :to="{ name: 'register' }">{{ M.register }}</router-link>
         </div>
       </div>

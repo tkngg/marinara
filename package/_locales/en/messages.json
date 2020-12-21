@@ -1,10 +1,10 @@
 {
   "app_name": {
-    "message": "Marinara: Pomodoro® Assistant",
+    "message": "Cerebro",
     "description": "The name of the application. Shown in the web store."
   },
   "app_name_short": {
-    "message": "Marinara",
+    "message": "Cerebro",
     "description": "The short name of the application. Shown at the top of the dropdown menu."
   },
   "app_desc": {
@@ -32,11 +32,11 @@
     "description": "Menu entry to restart the current timer. Shown in the dropdown menu."
   },
   "start_focusing": {
-    "message": "Start Focusing",
+    "message": "Start Focus Session",
     "description": "Start a focus session. Shown in the dropdown menu, timer expiration page, and in browser notifications."
   },
   "start_short_break": {
-    "message": "Start Short Break",
+    "message": "Start Break",
     "description": "Start a short break session. Shown in the dropdown menu, timer expiration page, and in browser notifications."
   },
   "start_break": {
@@ -86,7 +86,7 @@
     }
   },
   "marinara_pomodoro_assistant": {
-    "message": "Marinara: Pomodoro Assistant",
+    "message": "Cerebro",
     "description": "Settings page title."
   },
   "settings": {
