@@ -75,6 +75,22 @@ SettingsSchema:
     version: this.version
 }
 
+class HistorySchema
+{
+  get version() {
+    return 1;
+  }
+
+  get default() {
+    return {
+      pomodoros: [],
+      durations: [],
+      timezones: [],
+      version: this.version
+    };
+  }
+}
+
 
 
 Design:
@@ -91,6 +107,13 @@ Steps:
 - Create Account
 - Sync data
 - 
+
+TODO:
+0. brute force calling of login api
+1. reskin UI
+2. API Layer -> redux pattern/store
+3. replace chrome store layer with API layer
+4. syncing local and remote data
 
 
 
@@ -120,4 +143,4 @@ Observers.OnExpire
 
 Resources:
 - https://codemyui.com/switch-login-signup/
-- 
+- https://codepen.io/Anna_Batura/pen/QEAqyE

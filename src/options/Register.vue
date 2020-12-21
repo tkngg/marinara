@@ -53,6 +53,7 @@
       </div>
     </div>
   </div>
+  <div>test{{ info }}</div>
 </div>
 
     <div class="section autostart">
@@ -367,6 +368,7 @@ import CountdownSettings from './CountdownSettings';
 import M from '../Messages';
 import createTimerSound from '../TimerSound';
 import { focus } from '../Directives';
+import axios from 'axios';
 
 export default {
   data() {
@@ -380,7 +382,8 @@ export default {
       timerSounds: null,
       timerSound: null,
       timerSoundMutex: new Mutex(),
-      loginView: true
+      loginView: true,
+      info: null
     };
   },
   async mounted() {
@@ -400,12 +403,15 @@ export default {
       let isSignup = e.target.classList.contains("btn-signup")
       // console.log("isLogin: " + isLogin + ", isSignup: " + isSignup + ", loginView: " + this.loginView);
 
-      if ((isLogin && !this.loginView) || (isSignup && this.loginView) ){
+      if ((isLogin && !this.loginView) || (isSignup && this.loginView)){
         console.log("toggle");
         this.loginView = !this.loginView;
       }
       else if (isLogin && this.loginView){
         console.log("call login API");
+        axios
+          .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+          .then(response => (this.info = response));
       }
       else {
         console.log("call signup API");
