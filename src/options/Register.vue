@@ -1,7 +1,7 @@
 <template>
   <form v-if="settings">
     
-<div class="container">
+<div class="container" v-bind:class="{ 'log-in': !loginView }">
   <div class="box"></div>
   <div class="container-forms">
     <div class="container-info">
@@ -11,7 +11,7 @@
             <p>
               Have an account?
             </p>
-            <div class="btn">
+            <div class="btn btn-login" @click="onToggleLoginView">
               Log in
             </div>
           </div>
@@ -23,7 +23,7 @@
             <p>
               Don't have an account? 
             </p>
-            <div class="btn">
+            <div class="btn btn-signup" @click="onToggleLoginView">
               Sign up
             </div>
           </div>
@@ -35,7 +35,7 @@
         <div class="table">
           <div class="table-cell">
             <input name="Username" placeholder="Username" type="text"><input name="Password" placeholder="Password" type="Password">
-            <div class="btn">
+            <div class="btn btn-login" @click="onToggleLoginView">
               Log in
             </div>
           </div>
@@ -45,7 +45,7 @@
         <div class="table">
           <div class="table-cell">
             <input name="email" placeholder="Email" type="text"><input name="fullName" placeholder="Full Name" type="text"><input name="Username" placeholder="Username" type="text"><input name="Password" placeholder="Password" type="Password">
-            <div class="btn" >
+            <div class="btn btn-signup" @click="onToggleLoginView">
               Sign up
             </div>
           </div>
@@ -288,6 +288,7 @@ input[type="number"] {
       opacity: 0;
     }
   }
+
   &.log-in {
     .box {
       &:before {
@@ -378,7 +379,8 @@ export default {
       notificationSounds: null,
       timerSounds: null,
       timerSound: null,
-      timerSoundMutex: new Mutex()
+      timerSoundMutex: new Mutex(),
+      loginView: true
     };
   },
   async mounted() {
@@ -393,6 +395,22 @@ export default {
     this.soundsClient.dispose();
   },
   methods: {
+    onToggleLoginView(e) {
+      let isLogin = e.target.classList.contains("btn-login");
+      let isSignup = e.target.classList.contains("btn-signup")
+      // console.log("isLogin: " + isLogin + ", isSignup: " + isSignup + ", loginView: " + this.loginView);
+
+      if ((isLogin && !this.loginView) || (isSignup && this.loginView) ){
+        console.log("toggle");
+        this.loginView = !this.loginView;
+      }
+      else if (isLogin && this.loginView){
+        console.log("call login API");
+      }
+      else {
+        console.log("call signup API");
+      }
+    },
     async saveSettings() {
       try {
         await this.settingsClient.setSettings(this.settings);
