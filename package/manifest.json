@@ -16,7 +16,7 @@
   ],
   "browser_action": {
     "default_title": "Cerebro",
-    "default_icon": "images/ninja.png"
+    "default_icon": "images/ninja-simple-512.png"
   },
   "background": {
     "persistent": true,
@@ -28,9 +28,9 @@
   },
   "options_page": "modules/options.html",
   "icons": {
-    "16": "images/ninja.png",
-    "48": "images/ninja.png",
-    "128": "images/ninja.png"
+    "16": "images/ninja-simple-512.png",
+    "48": "images/ninja-simple-512.png",
+    "128": "images/ninja-simple-512.png"
   },
   "minimum_chrome_version": "55",
   "content_security_policy": "script-src 'self'; object-src 'self'"
