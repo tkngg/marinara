@@ -87,6 +87,13 @@ Steps:
 4. Start all tabs during the start of a new pomodoro (for that particular context)
 5. Have multiple contexts/tasks, and able to select/link each pomodoro to each
 
+6. API - Rest Client calling server API
+- Create Account
+- Sync data
+- 
+
+
+
 Schema
 {
     context: {
@@ -108,3 +115,9 @@ ExpirationPage -> SingletonPage
 Observers.OnExpire
 - new Notification()
 - await ExpirationPage.show();
+
+
+
+Resources:
+- https://codemyui.com/switch-login-signup/
+- 
