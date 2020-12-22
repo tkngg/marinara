@@ -3,7 +3,7 @@
     <div class="header">
       <div class="inner">
         <div>
-          <!-- <img src="/images/brain5.png"> -->
+          <img src="/images/brain7.png">
           <h1>{{ M.marinara_pomodoro_assistant }}</h1>
         </div>
         <div class="tab-bar">
@@ -71,12 +71,13 @@ input.duration {
   width: 50px;
 }
 .header {
-  background: linear-gradient(to bottom, #d00, #b00);
+  background: linear-gradient(to bottom, #e09292, #df2929);
   padding: 10px 0 0 0;
   box-shadow: 0 3px 10px #999;
   img {
     vertical-align: middle;
     margin-right: 15px;
+    max-height: 50px;
   }
   h1 {
     font-weight: 500;
@@ -102,12 +103,12 @@ input.duration {
     transition: background-color 0.2s ease;
     &:hover {
       color: #fff;
-      background: #900;
+      background: #e09292;
     }
     &.router-link-exact-active {
       opacity: 1;
       color: #fff;
-      background: #800;
+      background: #e09292fd;
     }
   }
 }
