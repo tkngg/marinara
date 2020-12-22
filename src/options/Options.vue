@@ -7,6 +7,7 @@
           <h1>{{ M.marinara_pomodoro_assistant }}</h1>
         </div>
         <div class="tab-bar">
+          <router-link :to="{ name: 'tabs' }">{{ M.tabs }}</router-link>
           <router-link :to="{ name: 'settings' }">{{ M.settings }}</router-link>
           <router-link :to="{ name: 'history' }">{{ M.history }}</router-link>
           <!-- <router-link :to="{ name: 'feedback' }">{{ M.feedback }}</router-link> -->

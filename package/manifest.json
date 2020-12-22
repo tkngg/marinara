@@ -6,7 +6,7 @@
   "version": "100",
   "manifest_version": 2,
   "author": "TK",
-  "homepage_url": "https://github.com/",
+  "homepage_url": "https://cerebro.com/",
   "offline_enabled": true,
   "permissions": [
     "alarms",

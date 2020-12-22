@@ -579,6 +579,9 @@ class Messages
   get sunday_short() {
     return chrome.i18n.getMessage('sunday_short', []);
   }
+  get tabs() {
+    return chrome.i18n.getMessage('tabs', []);
+  }
   get take_a_break() {
     return chrome.i18n.getMessage('take_a_break', []);
   }

@@ -8,7 +8,7 @@
     "description": "The short name of the application. Shown at the top of the dropdown menu."
   },
   "app_desc": {
-    "message": "Pomodoro® time management assistant.",
+    "message": "Cerebro - pomdoro style and tab management productivity app",
     "description": "The short description of the application. Shown in the web store."
   },
   "chrome_web_store_description": {
@@ -88,6 +88,10 @@
   "marinara_pomodoro_assistant": {
     "message": "Cerebro",
     "description": "Settings page title."
+  },
+  "tabs": {
+    "message": "Tabs",
+    "description": "Tabs page. Shown on the settings page."
   },
   "settings": {
     "message": "Settings",

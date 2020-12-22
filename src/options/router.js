@@ -5,6 +5,7 @@ import Settings from './Settings';
 import History from './History';
 import Feedback from './Feedback';
 import Register from './Register';
+import Tabs from './Tabs';
 import M from '../Messages';
 
 Vue.use(Router);
@@ -20,6 +21,12 @@ const router = new Router({
         {
           path: '',
           redirect: 'settings'
+        },
+        {
+          path: 'tabs',
+          name: 'tabs',
+          component: Tabs,
+          meta: { title: M.tabs }
         },
         {
           path: 'settings',
