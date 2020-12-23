@@ -217,7 +217,7 @@
 //vue-select-image
 .vue-select-image
 {
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 .vue-select-image__wrapper
 {
@@ -229,7 +229,7 @@
 }
 .vue-select-image__item
 {
-    margin:0 12px 12px 0;
+    margin:0 20px 12px 0;
     float:left
 }
 .vue-select-image__thumbnail
@@ -243,8 +243,8 @@
     border-radius:4px;
     box-shadow:0 1px 3px rgba(0,0,0,.055);
     transition:all .2s ease-in-out;
-    width: 98px;
-    height: 98px;
+    width: 90px;
+    height: 90px;
 }
 .vue-select-image__thumbnail--selected
 {
