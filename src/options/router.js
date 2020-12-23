@@ -6,6 +6,10 @@ import History from './History';
 import Feedback from './Feedback';
 import Register from './Register';
 import Tabs from './Tabs';
+import Daily from './components/Daily';
+import Weekly from './components/Weekly';
+import Monthly from './components/Monthly';
+import Summary from './components/Summary';
 import M from '../Messages';
 
 Vue.use(Router);
@@ -52,6 +56,40 @@ const router = new Router({
           component: Register,
           meta: { title: M.register }
         }
+      ]
+    },
+    {
+      path: '/history',
+      component: History,
+      children: [
+        {
+          path: '',
+          redirect: 'summary'
+        },
+        {
+          path: 'summary',
+          name: 'summary',
+          component: Summary,
+          meta: 'Summary Statistics'
+        },
+        {
+          path: 'daily',
+          name: 'daily',
+          component: Daily,
+          meta: 'Daily Statistics'
+        },
+        {
+          path: 'weekly',
+          name: 'weekly',
+          component: Weekly,
+          meta: 'Weekly Statistics'
+        },
+        {
+          path: 'monthly',
+          name: 'monthly',
+          component: Monthly,
+          meta: 'Monthly Statistics'
+        },
       ]
     }
   ]

@@ -74,6 +74,21 @@
         </div>
       </div>
     </section>
+        <div class="tab-bar">
+          <router-link :to="{ name: 'summary' }">Summary</router-link>
+          <router-link :to="{ name: 'daily' }">Daily</router-link>
+          <router-link :to="{ name: 'weekly' }">Weeekly</router-link>
+          <router-link :to="{ name: 'monthly' }">Monthly</router-link>
+        </div>
+    <div class="content">
+      <div class="inner">
+        <transition name="fade" mode="out-in">
+          <keep-alive>
+            <router-view class="tab-page"></router-view>
+          </keep-alive>
+        </transition>
+      </div>
+    </div>
   </div>
 </template>
 
