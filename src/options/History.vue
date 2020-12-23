@@ -303,28 +303,28 @@ export default {
       active: 'summary',
       dataImages: [{
                     id: '1',
-                    src: '../images/summary.png',
+                    src: '../images/calendar/summary2.png',
                     alt: 'Summary',
                     name: 'summary'
                   }, {
                     id: '2',
-                    src: '../images/daily.png',
+                    src: '../images/calendar/daily2.png',
                     alt: 'Daily',
                     name: 'daily'
                   }, {
                     id: '3',
-                    src: '../images/weekly.png',
+                    src: '../images/calendar/summary.png',
                     alt: 'Weekly',
                     name: 'weekly'
                   },{
                     id: '4',
-                    src: '../images/monthly.png',
+                    src: '../images/calendar/heatmap.png',
                     alt: 'Monthly',
                     name: 'monthly',
                     disabled: false
                   },{
                     id: '5',
-                    src: '../images/other.png',
+                    src: '../images/calendar/other.png',
                     alt: 'Other',
                     name: 'other',
                     disabled: false
