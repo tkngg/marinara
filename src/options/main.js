@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import M from '../Messages';
+import VueSelectImage from 'vue-select-image';
 
 Vue.config.productionTip = false;
 Vue.config.devtools = false;
@@ -13,6 +14,8 @@ Vue.mixin({
     }
   }
 });
+
+Vue.use(VueSelectImage)
 
 new Vue({
   router,

@@ -1,7 +1,13 @@
 <template>
   <div v-if="stats" class="history">
+
+<vue-select-image
+  :dataImages="dataImages"
+  @onselectimage="onSelectImage">
+</vue-select-image>
+
     <div id="sparkline"></div>
-    <div class="stats">
+    <div class="stats" v-if="active=='summary'">
       <div class="stat">
         <div class="value">{{ stats.day | integer }}</div>
         <div class="bucket">{{ M.today }}</div>
@@ -22,7 +28,7 @@
         <div class="bucket">{{ M.total }}</div>
       </div>
     </div>
-    <section class="day-distribution chart">
+    <section class="day-distribution chart" v-if="active=='daily'">
       <div class="title">
         <h2>{{ M.daily_distribution }}</h2>
         <div v-if="stats.total > 0" class="options" key="actions">
@@ -39,21 +45,21 @@
       <DayDistribution v-if="stats.total > 0" :pomodoros="stats.pomodoros" :bucketSize="dayDistributionBucketSize" key="chart"></DayDistribution>
       <div v-else class="empty" key="empty">{{ M.daily_empty_placeholder }}</div>
     </section>
-    <section class="chart">
+    <section class="chart" v-if="active=='weekly'">
       <div class="title">
         <h2>{{ M.weekly_distribution }}</h2>
       </div>
       <WeekDistribution v-if="stats.total > 0" :pomodoros="stats.pomodoros" key="chart"></WeekDistribution>
       <div v-else class="empty" key="empty">{{ M.weekly_empty_placeholder }}</div>
     </section>
-    <section class="chart">
+    <section class="chart" v-if="active=='monthly'">
       <div class="title">
         <h2>{{ stats.period | pomodoroCount | last_9_months }}</h2>
       </div>
       <Heatmap v-if="stats.total > 0" :pomodoros="stats.daily" :start="historyStart" key="chart"></Heatmap>
       <div v-else class="empty" key="empty">{{ M.history_empty_placeholder }}</div>
     </section>
-    <section class="chart">
+    <section class="chart" v-if="active=='other'">
       <div class="title">{{ M.your_history }}</div>
       <div class="actions">
         <div class="action">
@@ -74,12 +80,13 @@
         </div>
       </div>
     </section>
-        <div class="tab-bar">
-          <router-link :to="{ name: 'summary' }">Summary</router-link>
-          <router-link :to="{ name: 'daily' }">Daily</router-link>
-          <router-link :to="{ name: 'weekly' }">Weeekly</router-link>
-          <router-link :to="{ name: 'monthly' }">Monthly</router-link>
-        </div>
+
+    <!-- <div class="tab-bar">
+      <router-link :to="{ name: 'summary' }">Summary</router-link>
+      <router-link :to="{ name: 'daily' }">Daily</router-link>
+      <router-link :to="{ name: 'weekly' }">Weeekly</router-link>
+      <router-link :to="{ name: 'monthly' }">Monthly</router-link>
+    </div>
     <div class="content">
       <div class="inner">
         <transition name="fade" mode="out-in">
@@ -88,7 +95,8 @@
           </keep-alive>
         </transition>
       </div>
-    </div>
+    </div> -->
+
   </div>
 </template>
 
@@ -205,6 +213,72 @@
   padding: 10px 17px;
   font-size: 16px;
 }
+
+//vue-select-image
+.vue-select-image
+{
+    margin-bottom: 50px;
+}
+.vue-select-image__wrapper
+{
+    overflow:auto;
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+    padding:0;margin:0
+}
+.vue-select-image__item
+{
+    margin:0 12px 12px 0;
+    float:left
+}
+.vue-select-image__thumbnail
+{
+    cursor:pointer;
+    padding:6px;
+    display:block;
+    padding:4px;
+    line-height:20px;
+    border:1px solid #ddd;
+    border-radius:4px;
+    box-shadow:0 1px 3px rgba(0,0,0,.055);
+    transition:all .2s ease-in-out;
+    width: 98px;
+    height: 98px;
+}
+.vue-select-image__thumbnail--selected
+{
+    background:#08c
+}
+.vue-select-image__thumbnail--disabled
+{
+    background:#b9b9b9;
+    cursor:not-allowed
+}
+.vue-select-image__thumbnail--disabled>.vue-select-image__img
+{
+    opacity:.5
+}
+.vue-select-image__img
+{
+    -webkit-user-drag:none;
+    display:block;
+    max-width:100%;
+    margin-right:auto;
+    margin-left:auto
+}
+.vue-select-image__lbl
+{
+    line-height:3
+}
+@media only screen and (min-width:1200px)
+{
+    .vue-select-image__item
+    {
+        margin-left:30px
+    }
+}
+
 </style>
 
 <script>
@@ -215,6 +289,8 @@ import Heatmap from './Heatmap';
 import DayDistribution from './DayDistribution';
 import WeekDistribution from './WeekDistribution';
 import M from '../Messages';
+import VueSelectImage from 'vue-select-image';
+// require('vue-select-image/dist/vue-select-image.css');
 
 export default {
   data() {
@@ -223,7 +299,36 @@ export default {
       pomodoroClient: new PomodoroClient(),
       stats: null,
       historyStart: null,
-      dayDistributionBucketSize: 30
+      dayDistributionBucketSize: 30,
+      active: 'summary',
+      dataImages: [{
+                    id: '1',
+                    src: '../images/summary.png',
+                    alt: 'Summary',
+                    name: 'summary'
+                  }, {
+                    id: '2',
+                    src: '../images/daily.png',
+                    alt: 'Daily',
+                    name: 'daily'
+                  }, {
+                    id: '3',
+                    src: '../images/weekly.png',
+                    alt: 'Weekly',
+                    name: 'weekly'
+                  },{
+                    id: '4',
+                    src: '../images/monthly.png',
+                    alt: 'Monthly',
+                    name: 'monthly',
+                    disabled: false
+                  },{
+                    id: '5',
+                    src: '../images/other.png',
+                    alt: 'Other',
+                    name: 'other',
+                    disabled: false
+                  }]
     };
   },
   async mounted() {
@@ -237,6 +342,10 @@ export default {
     this.pomodoroClient.dispose();
   },
   methods: {
+    onSelectImage(x){
+      console.log(x.id);
+      this.active = x.name;
+    },
     async exportHistoryCSV() {
       let csv = await this.historyClient.getCSV();
       File.save('history.csv', csv);
@@ -295,6 +404,7 @@ export default {
     last_9_months: M.last_9_months
   },
   components: {
+    VueSelectImage,
     Heatmap,
     DayDistribution,
     WeekDistribution
