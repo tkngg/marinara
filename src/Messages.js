@@ -573,6 +573,9 @@ class Messages
   get stopwatch() {
     return chrome.i18n.getMessage('stopwatch', []);
   }
+  get summary() {
+    return chrome.i18n.getMessage('summary', []);
+  }
   get sunday() {
     return chrome.i18n.getMessage('sunday', []);
   }

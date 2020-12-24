@@ -307,6 +307,10 @@
       }
     }
   },
+  "summary": {
+    "message": "Summary",
+    "description": "Statistics Summary section header. Shown on the settings-history page."
+  },
   "daily_distribution": {
     "message": "Daily Distribution",
     "description": "Daily distribution section header. Shown on the settings-history page."

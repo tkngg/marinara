@@ -9,13 +9,12 @@
         :list="list"
         class="list-group"
         draggable=".item"
-        group="a"
-      >
+        group="a">
+
         <div
           class="list-group-item item"
           v-for="element in list"
-          :key="element.name"
-        >
+          :key="element.name">
           {{ element.name }}
         </div>
 
@@ -23,8 +22,7 @@
           slot="header"
           class="btn-group list-group-item"
           role="group"
-          aria-label="Basic example"
-        >
+          aria-label="Basic example">
           <button class="btn btn-secondary" @click="add">Add</button>
           <button class="btn btn-secondary" @click="replace">Replace</button>
         </div>
@@ -38,8 +36,7 @@
         <div
           class="list-group-item item"
           v-for="element in list2"
-          :key="element.name"
-        >
+          :key="element.name">
           {{ element.name }}
         </div>
 
@@ -47,8 +44,7 @@
           slot="header"
           class="btn-group list-group-item"
           role="group"
-          aria-label="Basic example"
-        >
+          aria-label="Basic example">
           <button class="btn btn-secondary" @click="add2">Add</button>
           <button class="btn btn-secondary" @click="replace2">Replace</button>
         </div>

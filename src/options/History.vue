@@ -7,27 +7,32 @@
 </vue-select-image>
 
     <div id="sparkline"></div>
-    <div class="stats" v-if="active=='summary'">
-      <div class="stat">
-        <div class="value">{{ stats.day | integer }}</div>
-        <div class="bucket">{{ M.today }}</div>
-        <div class="average">{{ stats.dayAverage | float(2) | average_stat }}</div>
+    <section class="chart" v-if="active=='summary'">
+      <div class="title">
+        <h2>{{ M.summary }}</h2>
       </div>
-      <div class="stat">
-        <div class="value">{{ stats.week | integer }}</div>
-        <div class="bucket">{{ M.this_week }}</div>
-        <div class="average">{{ stats.weekAverage | float(2) | average_stat }}</div>
+      <div class="stats">
+        <div class="stat">
+          <div class="value">{{ stats.day | integer }}</div>
+          <div class="bucket">{{ M.today }}</div>
+          <div class="average">{{ stats.dayAverage | float(2) | average_stat }}</div>
+        </div>
+        <div class="stat">
+          <div class="value">{{ stats.week | integer }}</div>
+          <div class="bucket">{{ M.this_week }}</div>
+          <div class="average">{{ stats.weekAverage | float(2) | average_stat }}</div>
+        </div>
+        <div class="stat">
+          <div class="value">{{ stats.month | integer }}</div>
+          <div class="bucket">{{ new Date() | strftime('%B') | in_month }}</div>
+          <div class="average">{{ stats.monthAverage | float(2) | average_stat }}</div>
+        </div>
+        <div class="stat">
+          <div class="value">{{ stats.total | integer }}</div>
+          <div class="bucket">{{ M.total }}</div>
+        </div>
       </div>
-      <div class="stat">
-        <div class="value">{{ stats.month | integer }}</div>
-        <div class="bucket">{{ new Date() | strftime('%B') | in_month }}</div>
-        <div class="average">{{ stats.monthAverage | float(2) | average_stat }}</div>
-      </div>
-      <div class="stat">
-        <div class="value">{{ stats.total | integer }}</div>
-        <div class="bucket">{{ M.total }}</div>
-      </div>
-    </div>
+    </section>
     <section class="day-distribution chart" v-if="active=='daily'">
       <div class="title">
         <h2>{{ M.daily_distribution }}</h2>
