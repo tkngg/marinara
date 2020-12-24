@@ -107,6 +107,12 @@ class Tabs
       chrome.tabs.query(queryInfo, callback);
     });
   }
+
+  static async get(tabId) {
+    return promise(callback => {
+      chrome.tabs.get(tabId, callback);
+    });
+  }
 }
 
 class Windows

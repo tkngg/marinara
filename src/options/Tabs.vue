@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-4">
-      <h3>Context #1</h3>
+      <h3>Current Context</h3>
 
       <draggable
         id="first"
@@ -12,10 +12,11 @@
         group="a">
 
         <div
-          class="list-group-item item"
+          class="list-group-item left-item item"
           v-for="element in list"
           :key="element.name">
-          {{ element.name }}
+          <span class="tab-icon" :style="{ backgroundImage: 'url(' + element.favIconUrl + ')' }"></span>
+          <span class="tab-title">{{ element.name }}</span>
         </div>
 
         <div
@@ -23,21 +24,21 @@
           class="btn-group list-group-item"
           role="group"
           aria-label="Basic example">
-          <button class="btn btn-secondary" @click="add">Add</button>
-          <button class="btn btn-secondary" @click="replace">Replace</button>
+          <button class="btn btn-secondary" @click="reset">Reset</button>
         </div>
       </draggable>
     </div>
 
     <div class="col-4">
-      <h3>Context #2</h3>
+      <h3>Open Tabs</h3>
 
       <draggable :list="list2" class="list-group" draggable=".item" group="a">
         <div
-          class="list-group-item item"
+          class="list-group-item right-item item"
           v-for="element in list2"
           :key="element.name">
-          {{ element.name }}
+          <span class="tab-icon" :style="{ backgroundImage: 'url(' + element.favIconUrl + ')' }"></span>
+          <span class="tab-title">{{ element.name }}</span>
         </div>
 
         <div
@@ -45,8 +46,6 @@
           class="btn-group list-group-item"
           role="group"
           aria-label="Basic example">
-          <button class="btn btn-secondary" @click="add2">Add</button>
-          <button class="btn btn-secondary" @click="replace2">Replace</button>
         </div>
       </draggable>
     </div>
@@ -93,24 +92,50 @@
     min-height: 20px;
 }
 .item {
-    background-color: #fbfbfd;
+    background-color: #fbfbfd00;
     border: 1px solid #f0f0f7;
     cursor: grab;
     touch-action: manipulation;
-    margin: 0.5rem 0px;
-    padding: 0.8rem 0.6rem 0;
+    padding: 0.8rem;
     overflow: visible;
     box-shadow: none;
     width: 13rem;
     height: 2.2rem;
     -webkit-tap-highlight-color: #FFF;    
-    text-align: center;
+    display: flex;
+    align-items: center;
+}
+.left-item {
+    height: 2.2rem;
+    margin: 0.5rem 0px;
+}
+.right-item {
+    height: 1rem;
+    margin: 0.2rem 0px;
+}
+.tab-icon {
+    background-size: 1rem 1rem;
+    height: 1rem;
+    width: 1rem;
+    display: block;
+    flex: 0 0 1rem;
+    margin-right: 0.5rem;
+}
+.tab-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+    white-space: nowrap;  
+    flex: 1 1; 
 }
 
 </style>
 
 <script>
 import draggable from "vuedraggable";
+// import draggable from './components/vuedraggable/vuedraggable';
+import Chrome from '../Chrome';
+
 let id = 1;
 export default {
   name: "two-list-headerslots",
@@ -122,25 +147,35 @@ export default {
   data() {
     return {
       list: [
-        { name: "John 1", id: 0 },
-        { name: "Joao 2", id: 1 },
-        { name: "Jean 3", id: 2 }
+        { name: "Drag a Tab to this context here!", id: 0 }
       ],
-      list2: [{ name: "Jonny 4", id: 3 }, { name: "Guisepe 5", id: 4 }]
+      list2: null
     };
   },
+  async mounted() {
+    this.loadCurrentTabs();
+  },
   methods: {
-    add: function() {
-      this.list.push({ name: "Juan " + id, id: id++ });
+    async loadCurrentTabs() {
+      let tabs = await Chrome.tabs.query({});
+      let list2 = []
+
+      for(let index in tabs){
+        let tab = tabs[index];
+        console.log(tab);
+        list2.push(
+          {
+            name: tab.title, 
+            id: tab.id, 
+            favIconUrl: tab.favIconUrl
+          }
+        )
+      }
+      this.list2 = list2;
     },
-    replace: function() {
-      this.list = [{ name: "Edgard", id: id++ }];
-    },
-    add2: function() {
-      this.list2.push({ name: "Juan " + id, id: id++ });
-    },
-    replace2: function() {
-      this.list2 = [{ name: "Edgard", id: id++ }];
+    reset: function() {
+      this.loadCurrentTabs();
+      this.list = [{ name: "Drag a Tab to this context here!", id: 0 }];
     }
   }
 };

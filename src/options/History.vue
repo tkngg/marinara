@@ -348,7 +348,6 @@ export default {
   },
   methods: {
     onSelectImage(x){
-      console.log(x.id);
       this.active = x.name;
     },
     async exportHistoryCSV() {
