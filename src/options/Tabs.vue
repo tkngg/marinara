@@ -6,17 +6,26 @@
             <template slot-scope="{ index, isCurrent, leftIndex, rightIndex }">
               <div class="task-card">
                 <h4>{{ task.name }}</h4>
-                <span class="desc">Description: {{ task.desc }}</span>
-                <!-- <span class="stats">Time Spent: {{ task.time }}</span> -->
-                <!-- <span class="pomodoros">No. of Pomodoros: {{task.time}}</span> -->
-                <!-- <span class="target"></span> -->
-                <Progress :radius="50" :strokeWidth="10" v-bind:value="calculatePercentage(task)">
-                  <template v-slot:footer>
-                  </template>
-                </Progress>
-                <!-- <button @click="onClickTask(task)">See Tabs</button> -->
-                <button @click="onClickRemoveTask(task)">Remove Task</button>
-                <button @click="onClickStartFocus(task)">Start New Focus Session</button>
+                <div class="task-container">
+                  <div class="task-text-container">
+                    <div class="task-text desc">Description: {{ task.desc }}</div>
+                    <div class="task-text time-spent">Time Spent: {{ task.time }}</div>
+                    <div class="task-text target">Target: {{ task.target }}</div>
+                    <div class="task-text deadline">Deadline: {{ task.deadline }}</div>
+                  </div>
+                  <Progress :radius="50" :strokeWidth="10" v-bind:value="calculatePercentage(task)">
+                    <template v-slot:footer>
+                      <div class="">
+                        <b>Completed</b>
+                      </div>
+                    </template>
+                  </Progress>
+                </div>
+                <div class="task-button-container">
+                  <!-- <button @click="onClickTask(task)">See Tabs</button> -->
+                  <button class="task-button" @click="onClickRemoveTask(task)">Remove Task</button>
+                  <button class="task-button" @click="onClickStartFocus(task)">Start Focus Session</button>
+                </div>
                 <!-- <img :data-index="index" :class="{ current: isCurrent, onLeft: (leftIndex >= 0), onRight: (rightIndex >= 0) }" :src="task.src"> -->
                 <!-- <draggable :list="list3a" class="list-group" draggable=".item" group="a">
                   <div class="list-group-item right-item item" v-for="element in list3a" :key="element.id">
@@ -30,7 +39,7 @@
     </carousel-3d>
 
     <div class="col-4">
-      <h3>Task 1 Tabs</h3>
+      <h3>Tabs for Task: {{}}</h3>
       <draggable id="first" data-source="juju" :list="lista" class="list-group" draggable=".item" group="a">
         <div class="list-group-item left-item item" v-for="element in lista" :key="element.id">
           <span class="tab-icon" :style="{ backgroundImage: 'url(' + element.favIconUrl + ')' }"></span>
@@ -43,19 +52,9 @@
     </div>
 
     <div class="col-4">
-      <h3>Task 2 Tabs</h3>
-      <draggable id="first" data-source="juju" :list="listb" class="list-group" draggable=".item" group="a">
-        <div class="list-group-item left-item item" v-for="element in listb" :key="element.id">
-          <span class="tab-icon" :style="{ backgroundImage: 'url(' + element.favIconUrl + ')' }"></span>
-          <span class="tab-title">{{ element.name }}</span>
-        </div>
-      </draggable>
-    </div>
-
-    <div class="col-4">
       <h3>Open Tabs</h3>
-      <draggable :list="list2" class="list-group" draggable=".item" group="a">
-        <div class="list-group-item right-item item" v-for="element in list2" :key="element.id">
+      <draggable :list="openTabsList" class="list-group" draggable=".item" group="a">
+        <div class="list-group-item right-item item" v-for="element in openTabsList" :key="element.id">
           <span class="tab-icon" :style="{ backgroundImage: 'url(' + element.favIconUrl + ')' }"></span>
           <span class="tab-title">{{ element.name }}</span>
         </div>
@@ -64,7 +63,7 @@
 
     <!-- <rawDisplayer class="col-2" :value="lista" title="Lista" />
     <rawDisplayer class="col-2" :value="listb" title="Listb" />
-    <rawDisplayer class="col-2" :value="list2" title="List2" /> -->
+    <rawDisplayer class="col-2" :value="openTabsList" title="openTabsList" /> -->
 
   </div>
 </template>
@@ -141,6 +140,27 @@
     white-space: nowrap;  
     flex: 1 1; 
 }
+.carousel-3d-slide {
+    padding: 0 20px;
+}
+.task-container {
+  display: flex;
+  flex-direction: row;
+}
+.task-text {
+  margin: 5px 0 0 0;
+}
+.task-card {
+  position: relative;
+  height: 90%;
+}
+.task-button-container {
+  position: absolute;
+  bottom: 0;
+}
+button.task-button {
+    width: 150px;
+}
 
 </style>
 
@@ -174,7 +194,7 @@ export default {
       list3a: [
         { name: "Drag a Tab to this context here!", id: 0 }
       ],
-      list2: null,
+      openTabsList: [],
       tasks: json.tasks
     };
   },
@@ -184,12 +204,9 @@ export default {
   methods: {
     async loadCurrentTabs() {
       let tabs = await Chrome.tabs.query({});
-      let list2 = []
-
       for(let index in tabs){
         let tab = tabs[index];
-        // console.log(tab);
-        list2.push(
+        this.openTabsList.push(
           {
             name: tab.title, 
             id: tab.id, 
@@ -197,7 +214,6 @@ export default {
           }
         )
       }
-      this.list2 = list2;
     },
     reset: function() {
       this.loadCurrentTabs();
