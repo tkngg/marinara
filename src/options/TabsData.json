@@ -1,0 +1,48 @@
+
+{
+    "tasks": [{
+          "id": 1,
+          "name": "LeetCode",
+          "desc": "Leetcode preparation for coding interviews",
+          "time": 123,
+          "target": 500,
+          "start": 0,
+          "end": 1000,
+          "src": "../images/brain2.png"
+        },
+        {
+          "id": 2,
+          "name": "Pomodoro App",
+          "desc": "Create MVP for Pomorodoro App",
+          "time": 123,
+          "src": "../images/brain3.png"
+        },
+        {
+          "id": 3,
+          "name": "Task 3",
+          "desc": "asjfdlkasd asdfasdfa sdfasdf asdfas df asdfsa",
+          "time": 123,
+          "src": "../images/brain4.png"
+        },
+        {
+          "id": 4,
+          "name": "Task 4",
+          "desc": "asjfdlkasd asdfasdfa sdfasdf asdfas df asdfsa",
+          "time": 123,
+          "src": "../images/brain5.png"
+        },
+        {
+          "id": 5,
+          "name": "Task 5",
+          "desc": "asjfdlkasd asdfasdfa sdfasdf asdfas df asdfsa",
+          "time": 123,
+          "src": "../images/brain6.png"
+        },
+        {
+          "id": 6,
+          "name": "Fel :)",
+          "desc": "Give Fel lots of love once out of quarantine",
+          "time": 123,
+          "src": "../images/brain7.png"
+        }]
+}

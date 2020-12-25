@@ -2,69 +2,65 @@
   <div class="row">
 
     <carousel-3d>
-        <slide v-for="(task, i) in tasks" :index="i" :key="i">
+        <slide v-for="(task, i) in tasks" :index="i" :key="task.id">
             <template slot-scope="{ index, isCurrent, leftIndex, rightIndex }">
+              <div class="task-card">
                 <h4>{{ task.name }}</h4>
-                <div>{{ task.desc }}</div>
-                <button @click="onClickTask"></button>
-                <img :data-index="index" :class="{ current: isCurrent, onLeft: (leftIndex >= 0), onRight: (rightIndex >= 0) }" :src="task.src">
+                <span class="desc">Description: {{ task.desc }}</span>
+                <span class="stats">Time Spent: {{ task.time }}</span>
+                <span class="pomodoros">No. of Pomodoros: {{task.time}}</span>
+                <span class="target"></span>
+                <!-- <button @click="onClickTask(task)">See Tabs</button> -->
+                <button @click="onClickRemoveTask(task)">Remove Task</button>
+                <button @click="onClickStartFocus(task)">Start New Focus Session</button>
+                <!-- <img :data-index="index" :class="{ current: isCurrent, onLeft: (leftIndex >= 0), onRight: (rightIndex >= 0) }" :src="task.src"> -->
+                <!-- <draggable :list="list3a" class="list-group" draggable=".item" group="a">
+                  <div class="list-group-item right-item item" v-for="element in list3a" :key="element.id">
+                    <span class="tab-icon" :style="{ backgroundImage: 'url(' + element.favIconUrl + ')' }"></span>
+                    <span class="tab-title">{{ element.name }}</span>
+                  </div>
+                </draggable> -->
+              </div>
             </template>
         </slide>
     </carousel-3d>
-    
+
     <div class="col-4">
-      <h3>Current Context</h3>
-
-      <draggable
-        id="first"
-        data-source="juju"
-        :list="list"
-        class="list-group"
-        draggable=".item"
-        group="a">
-
-        <div
-          class="list-group-item left-item item"
-          v-for="element in list"
-          :key="element.name">
+      <h3>Task 1 Tabs</h3>
+      <draggable id="first" data-source="juju" :list="lista" class="list-group" draggable=".item" group="a">
+        <div class="list-group-item left-item item" v-for="element in lista" :key="element.id">
           <span class="tab-icon" :style="{ backgroundImage: 'url(' + element.favIconUrl + ')' }"></span>
           <span class="tab-title">{{ element.name }}</span>
         </div>
-
-        <div
-          slot="header"
-          class="btn-group list-group-item"
-          role="group"
-          aria-label="Basic example">
+        <div slot="header" class="btn-group list-group-item" role="group" aria-label="Basic example">
           <button class="btn btn-secondary" @click="reset">Reset</button>
         </div>
       </draggable>
     </div>
 
     <div class="col-4">
-      <h3>Open Tabs</h3>
-
-      <draggable :list="list2" class="list-group" draggable=".item" group="a">
-        <div
-          class="list-group-item right-item item"
-          v-for="element in list2"
-          :key="element.name">
+      <h3>Task 2 Tabs</h3>
+      <draggable id="first" data-source="juju" :list="listb" class="list-group" draggable=".item" group="a">
+        <div class="list-group-item left-item item" v-for="element in listb" :key="element.id">
           <span class="tab-icon" :style="{ backgroundImage: 'url(' + element.favIconUrl + ')' }"></span>
           <span class="tab-title">{{ element.name }}</span>
-        </div>
-
-        <div
-          slot="header"
-          class="btn-group list-group-item"
-          role="group"
-          aria-label="Basic example">
         </div>
       </draggable>
     </div>
 
-    <rawDisplayer class="col-2" :value="list" title="List" />
+    <div class="col-4">
+      <h3>Open Tabs</h3>
+      <draggable :list="list2" class="list-group" draggable=".item" group="a">
+        <div class="list-group-item right-item item" v-for="element in list2" :key="element.id">
+          <span class="tab-icon" :style="{ backgroundImage: 'url(' + element.favIconUrl + ')' }"></span>
+          <span class="tab-title">{{ element.name }}</span>
+        </div>
+      </draggable>
+    </div>
 
-    <rawDisplayer class="col-2" :value="list2" title="List2" />
+    <!-- <rawDisplayer class="col-2" :value="lista" title="Lista" />
+    <rawDisplayer class="col-2" :value="listb" title="Listb" />
+    <rawDisplayer class="col-2" :value="list2" title="List2" /> -->
 
   </div>
 </template>
@@ -145,11 +141,12 @@
 </style>
 
 <script>
-import draggable from "vuedraggable";
-// import draggable from './components/vuedraggable/vuedraggable';
 import Chrome from '../Chrome';
+import { PomodoroClient } from '../background/Services';
 import { Carousel3d, Slide } from 'vue-carousel-3d';
+import draggable from "vuedraggable";
 
+let json = require('./TabsData.json'); 
 let id = 1;
 export default {
   name: "tab-page",
@@ -162,39 +159,17 @@ export default {
   },
   data() {
     return {
-      list: [
+      lista: [
+        { name: "Drag a Tab to this context here!", id: 0 }
+      ],
+      listb: [
+        { name: "Drag a Tab to this context here!", id: 0 }
+      ],
+      list3a: [
         { name: "Drag a Tab to this context here!", id: 0 }
       ],
       list2: null,
-      tasks:[
-        {
-          name: "Task 1",
-          desc: "asjfdlkasd asdfasdfa sdfasdf asdfas df asdfsa",
-          src: "../images/brain2.png"
-        },
-        {
-          name: "Task 2",
-          desc: "asjfdlkasd asdfasdfa sdfasdf asdfas df asdfsa",
-          src: "../images/brain3.png"
-        },
-        {
-          name: "Task 3",
-          desc: "asjfdlkasd asdfasdfa sdfasdf asdfas df asdfsa",
-          src: "../images/brain4.png"
-        },
-        {
-          name: "Task 4",
-          src: "../images/brain5.png"
-        },
-        {
-          name: "Task 5",
-          src: "../images/brain6.png"
-        },
-        {
-          name: "Task 6",
-          src: "../images/brain7.png"
-        }
-      ]
+      tasks: json.tasks
     };
   },
   async mounted() {
@@ -220,11 +195,27 @@ export default {
     },
     reset: function() {
       this.loadCurrentTabs();
-      this.list = [{ name: "Drag a Tab to this context here!", id: 0 }];
+      this.lista = [{ name: "Drag a Tab to this context here!", id: 0 }];
+      this.listb = [{ name: "Drag a Tab to this context here!", id: 0 }];
     },
     onClickTask: function(e) {
       console.log("Task clicked!");
       console.log(e);
+    },
+    onClickRemoveTask: function(e) {
+      console.log("Remove Task");
+      for (let i = 0; i < this.tasks.length; i++) {
+          let obj = this.tasks[i];
+
+          if (e.id === obj.id) {
+              this.tasks.splice(i, 1);
+          }
+      }
+    },
+    async onClickStartFocus(e){
+      console.log("Start Focus");
+      PomodoroClient.once.restart();
+      // here need to close all tabs and open task tabs
     }
   }
 };
