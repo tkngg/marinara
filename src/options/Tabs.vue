@@ -1,5 +1,17 @@
 <template>
   <div class="row">
+
+    <carousel-3d>
+        <slide v-for="(task, i) in tasks" :index="i" :key="i">
+            <template slot-scope="{ index, isCurrent, leftIndex, rightIndex }">
+                <h4>{{ task.name }}</h4>
+                <div>{{ task.desc }}</div>
+                <button @click="onClickTask"></button>
+                <img :data-index="index" :class="{ current: isCurrent, onLeft: (leftIndex >= 0), onRight: (rightIndex >= 0) }" :src="task.src">
+            </template>
+        </slide>
+    </carousel-3d>
+    
     <div class="col-4">
       <h3>Current Context</h3>
 
@@ -53,6 +65,7 @@
     <rawDisplayer class="col-2" :value="list" title="List" />
 
     <rawDisplayer class="col-2" :value="list2" title="List2" />
+
   </div>
 </template>
 
@@ -135,21 +148,53 @@
 import draggable from "vuedraggable";
 // import draggable from './components/vuedraggable/vuedraggable';
 import Chrome from '../Chrome';
+import { Carousel3d, Slide } from 'vue-carousel-3d';
 
 let id = 1;
 export default {
-  name: "two-list-headerslots",
-  display: "Two list header slot",
+  name: "tab-page",
+  display: "Tab Page",
   order: 14,
   components: {
-    draggable
+    draggable,
+    Carousel3d,
+    Slide
   },
   data() {
     return {
       list: [
         { name: "Drag a Tab to this context here!", id: 0 }
       ],
-      list2: null
+      list2: null,
+      tasks:[
+        {
+          name: "Task 1",
+          desc: "asjfdlkasd asdfasdfa sdfasdf asdfas df asdfsa",
+          src: "../images/brain2.png"
+        },
+        {
+          name: "Task 2",
+          desc: "asjfdlkasd asdfasdfa sdfasdf asdfas df asdfsa",
+          src: "../images/brain3.png"
+        },
+        {
+          name: "Task 3",
+          desc: "asjfdlkasd asdfasdfa sdfasdf asdfas df asdfsa",
+          src: "../images/brain4.png"
+        },
+        {
+          name: "Task 4",
+          src: "../images/brain5.png"
+        },
+        {
+          name: "Task 5",
+          src: "../images/brain6.png"
+        },
+        {
+          name: "Task 6",
+          src: "../images/brain7.png"
+        }
+      ]
     };
   },
   async mounted() {
@@ -162,7 +207,7 @@ export default {
 
       for(let index in tabs){
         let tab = tabs[index];
-        console.log(tab);
+        // console.log(tab);
         list2.push(
           {
             name: tab.title, 
@@ -176,6 +221,10 @@ export default {
     reset: function() {
       this.loadCurrentTabs();
       this.list = [{ name: "Drag a Tab to this context here!", id: 0 }];
+    },
+    onClickTask: function(e) {
+      console.log("Task clicked!");
+      console.log(e);
     }
   }
 };
