@@ -7,9 +7,13 @@
               <div class="task-card">
                 <h4>{{ task.name }}</h4>
                 <span class="desc">Description: {{ task.desc }}</span>
-                <span class="stats">Time Spent: {{ task.time }}</span>
-                <span class="pomodoros">No. of Pomodoros: {{task.time}}</span>
-                <span class="target"></span>
+                <!-- <span class="stats">Time Spent: {{ task.time }}</span> -->
+                <!-- <span class="pomodoros">No. of Pomodoros: {{task.time}}</span> -->
+                <!-- <span class="target"></span> -->
+                <Progress :radius="50" :strokeWidth="10" v-bind:value="calculatePercentage(task)">
+                  <template v-slot:footer>
+                  </template>
+                </Progress>
                 <!-- <button @click="onClickTask(task)">See Tabs</button> -->
                 <button @click="onClickRemoveTask(task)">Remove Task</button>
                 <button @click="onClickStartFocus(task)">Start New Focus Session</button>
@@ -145,6 +149,7 @@ import Chrome from '../Chrome';
 import { PomodoroClient } from '../background/Services';
 import { Carousel3d, Slide } from 'vue-carousel-3d';
 import draggable from "vuedraggable";
+import Progress from "easy-circular-progress";
 
 let json = require('./TabsData.json'); 
 let id = 1;
@@ -155,7 +160,8 @@ export default {
   components: {
     draggable,
     Carousel3d,
-    Slide
+    Slide,
+    Progress
   },
   data() {
     return {
@@ -216,6 +222,9 @@ export default {
       console.log("Start Focus");
       PomodoroClient.once.restart();
       // here need to close all tabs and open task tabs
+    },
+    calculatePercentage: function(task){
+      return (task.time/task.target*100).toString();
     }
   }
 };
