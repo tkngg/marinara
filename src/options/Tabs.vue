@@ -216,7 +216,6 @@ export default {
       currentTask.tabs = [];
       this.currentTaskTabList = [];
       this.loadCurrentOpenTabs();
-      // this.createCurrentTaskTabList(this.currentTaskId);
     },
     onTabListChange: function(evt) {
       if ("added" in evt) {
