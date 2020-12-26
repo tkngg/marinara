@@ -52,6 +52,9 @@
           <span class="tab-icon" :style="{ backgroundImage: 'url(' + element.favIconUrl + ')' }"></span>
           <span class="tab-title">{{ element.name }}</span>
         </div>
+        <div slot="header" class="btn-group list-group-item" role="group" aria-label="Basic example">
+          <button class="btn btn-secondary" @click="refreshOpenTabs">Refresh</button>
+        </div>
       </draggable>
     </div>
 
@@ -298,6 +301,9 @@ export default {
               tabs.splice(i, 1);
           }
       }      
+    },
+    refreshOpenTabs() {
+      this.loadCurrentOpenTabs();
     }
   }
 };
