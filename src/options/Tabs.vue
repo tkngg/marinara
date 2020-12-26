@@ -1,6 +1,8 @@
 <template>
   <div class="row">
-
+    <div class="add-button">
+      <button class="create-task-button" @click="createNewTask">Create New Task</button>
+    </div>
     <carousel-3d @before-slide-change="onBeforeSlideChange">
         <slide v-for="(task, i) in tasks" :index="i" :key="task.id" :task-id="task.id">
             <template slot-scope="{ index, isCurrent, leftIndex, rightIndex }">
@@ -304,6 +306,9 @@ export default {
     },
     refreshOpenTabs() {
       this.loadCurrentOpenTabs();
+    },
+    createNewTask() {
+      console.log("Create new task")
     }
   }
 };

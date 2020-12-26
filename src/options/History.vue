@@ -297,6 +297,8 @@ import M from '../Messages';
 import VueSelectImage from 'vue-select-image';
 // require('vue-select-image/dist/vue-select-image.css');
 
+let json = require('./HistoryImages.json');
+
 export default {
   data() {
     return {
@@ -306,34 +308,7 @@ export default {
       historyStart: null,
       dayDistributionBucketSize: 30,
       active: 'summary',
-      dataImages: [{
-                    id: '1',
-                    src: '../images/calendar/summary2.png',
-                    alt: 'Summary',
-                    name: 'summary'
-                  }, {
-                    id: '2',
-                    src: '../images/calendar/daily2.png',
-                    alt: 'Daily',
-                    name: 'daily'
-                  }, {
-                    id: '3',
-                    src: '../images/calendar/summary.png',
-                    alt: 'Weekly',
-                    name: 'weekly'
-                  },{
-                    id: '4',
-                    src: '../images/calendar/heatmap.png',
-                    alt: 'Monthly',
-                    name: 'monthly',
-                    disabled: false
-                  },{
-                    id: '5',
-                    src: '../images/calendar/other.png',
-                    alt: 'Other',
-                    name: 'other',
-                    disabled: false
-                  }]
+      dataImages: json
     };
   },
   async mounted() {
