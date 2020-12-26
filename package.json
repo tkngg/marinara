@@ -8,6 +8,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@koumoul/vjsf": "^1.17.1",
+    "@kouts/vue-modal": "^2.0.1",
     "axios": "^0.21.0",
     "d3": "^5.0.0",
     "easy-circular-progress": "^1.0.4",

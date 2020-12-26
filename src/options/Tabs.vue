@@ -1,7 +1,14 @@
 <template>
   <div class="row">
     <div class="add-button">
-      <button class="create-task-button" @click="createNewTask">Create New Task</button>
+      <!-- <button class="create-task-button" @click="createNewTask">Create New Task</button> -->
+      <button type="button" class="btn btn-primary" @click="showModal=true">
+        Create New Task
+      </button>
+      <VueModal v-model="showModal" title="Create New Task">
+        <!-- <p>Modal content goes here...</p> -->
+        <CreateTaskForm username="asdfasdfasdf" @submitForm="showModal = false"></CreateTaskForm>
+      </VueModal>
     </div>
     <carousel-3d @before-slide-change="onBeforeSlideChange">
         <slide v-for="(task, i) in tasks" :index="i" :key="task.id" :task-id="task.id">
@@ -172,6 +179,9 @@ import { PomodoroClient } from '../background/Services';
 import { Carousel3d, Slide } from 'vue-carousel-3d';
 import draggable from "vuedraggable";
 import Progress from "easy-circular-progress";
+import VueModal from '@kouts/vue-modal';
+import '@kouts/vue-modal/dist/vue-modal.css';
+import CreateTaskForm from './containers/CreateTaskForm';
 
 let json = require('./TabsData.json'); 
 let id = 1;
@@ -183,7 +193,9 @@ export default {
     draggable,
     Carousel3d,
     Slide,
-    Progress
+    Progress,
+    VueModal,
+    CreateTaskForm
   },
   data() {
     return {
@@ -192,7 +204,8 @@ export default {
       currentTaskId: null,
       currentTaskName: "",
       openTabsList: [],
-      tasks: json.tasks
+      tasks: json.tasks,
+      showModal: false
     };
   },
   async mounted() {
