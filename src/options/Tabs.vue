@@ -1,7 +1,7 @@
 <template>
   <div class="row">
 
-    <carousel-3d @after-slide-change="onAfterSlideChange" @before-slide-change="onBeforeSlideChange" @last-slide="onLastSlide">
+    <carousel-3d @before-slide-change="onBeforeSlideChange">
         <slide v-for="(task, i) in tasks" :index="i" :key="task.id" :task-id="task.id">
             <template slot-scope="{ index, isCurrent, leftIndex, rightIndex }">
               <div class="task-card">
@@ -23,7 +23,6 @@
                   </Progress>
                 </div>
                 <div class="task-button-container">
-                  <!-- <button @click="onClickTask(task)">See Tabs</button> -->
                   <button class="task-button" @click="onClickRemoveTask(task)">Remove Task</button>
                   <button class="task-button" @click="onClickStartFocus(task)">Start Focus Session</button>
                 </div>
@@ -35,13 +34,13 @@
 
     <div class="col-4">
       <h3>Tabs for Task: {{this.currentTaskName}}</h3>
-      <draggable id="first" data-source="juju" :list="currentTaskTabList" class="list-group" draggable=".item" group="a">
+      <draggable id="first" data-source="juju" :list="currentTaskTabList" class="list-group" draggable=".item" group="a" @change="onTabListChange">
         <div class="list-group-item left-item item" v-for="element in currentTaskTabList" :key="element.id">
           <span class="tab-icon" :style="{ backgroundImage: 'url(' + element.favIconUrl + ')' }"></span>
           <span class="tab-title">{{ element.name }}</span>
         </div>
         <div slot="header" class="btn-group list-group-item" role="group" aria-label="Basic example">
-          <button class="btn btn-secondary" @click="reset">Reset</button>
+          <button class="btn btn-secondary" @click="removeAllTabsFromTask">Remove all Tabs</button>
         </div>
       </draggable>
     </div>
@@ -184,9 +183,7 @@ export default {
   data() {
     return {
       carouselElement: document.getElementsByClassName('carousel-3d-slider'),
-      currentTaskTabList: [
-        { name: "Drag a Tab to this context here!", id: 0 }
-      ],
+      currentTaskTabList: [],
       currentTaskId: null,
       currentTaskName: "",
       openTabsList: [],
@@ -194,11 +191,12 @@ export default {
     };
   },
   async mounted() {
-    this.loadCurrentTabs();
-    this.createCurrentTaskTabList(this.tasks[0].id);
+    this.loadCurrentOpenTabs();
+    this.currentTaskId = this.tasks[0].id;
+    this.createCurrentTaskTabList(this.currentTaskId);
   },
   methods: {
-    async loadCurrentTabs() {
+    async loadCurrentOpenTabs() {
       this.openTabsList = [];
       let tabs = await Chrome.tabs.query({});
       for(let index in tabs){
@@ -213,53 +211,53 @@ export default {
         )
       }
     },
-    reset: function() {
-      this.loadCurrentTabs();
-      this.currentTaskTabList = [{ name: "Drag a Tab to this context here!", id: 0 }];
+    removeAllTabsFromTask: function() {
+      let currentTask = this.getTaskFromId(this.currentTaskId);
+      currentTask.tabs = [];
+      this.currentTaskTabList = [];
+      this.loadCurrentOpenTabs();
+      // this.createCurrentTaskTabList(this.currentTaskId);
     },
-    onClickTask: function(e) {
-      console.log("Task clicked!");
-      console.log(e);
+    onTabListChange: function(evt) {
+      if ("added" in evt) {
+        this.addTabToTask(evt.added.element, this.currentTaskId);
+      } else {
+        this.removeTabFromTask(evt.removed.element, this.currentTaskId);
+      }
     },
     onClickRemoveTask: function(e) {
-      console.log("Remove Task");
+      let newId;
       for (let i = 0; i < this.tasks.length; i++) {
           let obj = this.tasks[i];
           if (e.id === obj.id) {
               this.tasks.splice(i, 1);
+              newId = i;
           }
       }
+      if (newId >= this.tasks.length) {
+        newId = 0;
+      }
+      this.currentTaskTabList = [];
+      let newCurrentTaskId = this.tasks[newId].id;
+      this.currentTaskId = newCurrentTaskId;
+      this.createCurrentTaskTabList(this.currentTaskId);
     },
     async onClickStartFocus(e){
-      console.log("Start Focus");
       PomodoroClient.once.restart();
       // here need to close all tabs and open task tabs
     },
     calculatePercentage: function(task){
       return (task.time/task.target*100).toString();
     },
-    onAfterSlideChange(index) {
-      // console.log('@onAfterSlideChange Callback Triggered', 'Slide Index ' + index);
-    },
     onBeforeSlideChange(carouselIndex) {
       let taskId = this.carouselElement[0].children.item(carouselIndex).getAttribute("task-id");
       this.createCurrentTaskTabList(parseInt(taskId));
     },
-    onLastSlide(index) {
-      // console.log('@onLastSlide Callback Triggered', 'Slide Index ' + index);
-    },
-    createCurrentTaskTabList(task_index) {
-      let task = null;
-
-      for (let i = 0; i < this.tasks.length; i++) {
-          let obj = this.tasks[i];
-          if (task_index === obj.id) {
-              task = obj;
-          }
-      }
+    createCurrentTaskTabList(taskId) {
+      let task = this.getTaskFromId(taskId);
 
       let tabs = task.tabs;
-      this.currentTaskId = task_index;
+      this.currentTaskId = taskId;
       this.currentTaskName = task.name;
       this.currentTaskTabList = [];
       for(let index in tabs){
@@ -273,6 +271,34 @@ export default {
           }
         )
       }
+    }, 
+    addTabToTask (tab, taskId){
+      let task = this.getTaskFromId(taskId);
+      let tabs = task.tabs;
+      tabs.push(tab);
+    },
+    removeTabFromTask(tab, taskId) {
+      let task = this.getTaskFromId(taskId);
+      let tabs = task.tabs;
+      this.removeTabFromList(tabs, tab);
+    },
+    getTaskFromId(taskId) {
+      let task = null;
+      for (let i = 0; i < this.tasks.length; i++) {
+          let obj = this.tasks[i];
+          if (taskId === obj.id) {
+              task = obj;
+          }
+      }
+      return task;      
+    },
+    removeTabFromList(tabs, tab){
+      for (let i = 0; i < tabs.length; i++) {
+          let obj = tabs[i];
+          if (tab.id === obj.id) {
+              tabs.splice(i, 1);
+          }
+      }      
     }
   }
 };

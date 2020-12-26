@@ -14,18 +14,21 @@
               {
                 "favIconUrl": "https://leetcode.com/favicon-notification-32x32.png",
                 "name": "(26) Python, Simple with Explanation - LeetCode Discuss",
-                "id": 45
+                "id": 45,
+                "url": ""
               },
               {
                 "favIconUrl": "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png",
                 "name": "My Drive - Google Drive",
-                "id": 48
+                "id": 48,
+                "url": ""
               },
               {
                 "favIconUrl": "https://account.mongodb.com/static/images/favicon.ico",
                 "name": "Log in | MongoDB",
-                "id": 299
-              }
+                "id": 299,
+                "url": ""
+            }
           ]
         },
         {
@@ -37,19 +40,16 @@
           "src": "../images/brain3.png",
           "tabs": [
             {
-              "favIconUrl": "https://leetcode.com/favicon-notification-32x32.png",
-              "name": "(26) Python, Simple with Explanation - LeetCode Discuss",
-              "id": 45
-            },
-            {
               "favIconUrl": "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png",
               "name": "My Drive - Google Drive",
-              "id": 48
+              "id": 48,
+              "url": ""
             },
             {
               "favIconUrl": "https://account.mongodb.com/static/images/favicon.ico",
               "name": "Log in | MongoDB",
-              "id": 299
+              "id": 299,
+              "url": ""
             }
           ]
         },
@@ -62,19 +62,10 @@
           "src": "../images/brain4.png",
           "tabs": [
             {
-              "favIconUrl": "https://leetcode.com/favicon-notification-32x32.png",
-              "name": "(26) Python, Simple with Explanation - LeetCode Discuss",
-              "id": 45
-            },
-            {
-              "favIconUrl": "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png",
-              "name": "My Drive - Google Drive",
-              "id": 48
-            },
-            {
               "favIconUrl": "https://account.mongodb.com/static/images/favicon.ico",
               "name": "Log in | MongoDB",
-              "id": 299
+              "id": 299,
+              "url": ""
             }
           ]
         },
@@ -84,7 +75,8 @@
           "desc": "Learn how to play the guitar, starting with basic chords and then strumming",
           "time": 54,
           "target": 100,
-          "src": "../images/brain5.png"
+          "src": "../images/brain5.png",
+          "tabs": []
         },
         {
           "id": 5,
@@ -92,7 +84,8 @@
           "desc": "Get ready resume, start initiating conversations with recruiters",
           "time": 79,
           "target": 100,
-          "src": "../images/brain6.png"
+          "src": "../images/brain6.png",
+          "tabs": []
         },
         {
           "id": 6,
@@ -100,6 +93,7 @@
           "desc": "Give Fel lots of love once out of quarantine",
           "time": 100,
           "target": 100,
-          "src": "../images/brain7.png"
+          "src": "../images/brain7.png",
+          "tabs": []
         }]
 }
