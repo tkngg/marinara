@@ -9,7 +9,24 @@
           "start": 0,
           "end": 1000,
           "Priority": 9,
-          "src": "../images/brain2.png"
+          "src": "../images/brain2.png",
+          "tabs": [
+              {
+                "favIconUrl": "https://leetcode.com/favicon-notification-32x32.png",
+                "name": "(26) Python, Simple with Explanation - LeetCode Discuss",
+                "id": 45
+              },
+              {
+                "favIconUrl": "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png",
+                "name": "My Drive - Google Drive",
+                "id": 48
+              },
+              {
+                "favIconUrl": "https://account.mongodb.com/static/images/favicon.ico",
+                "name": "Log in | MongoDB",
+                "id": 299
+              }
+          ]
         },
         {
           "id": 2,
@@ -17,7 +34,24 @@
           "desc": "Create MVP for Pomorodoro App",
           "time": 12,
           "target": 100,
-          "src": "../images/brain3.png"
+          "src": "../images/brain3.png",
+          "tabs": [
+            {
+              "favIconUrl": "https://leetcode.com/favicon-notification-32x32.png",
+              "name": "(26) Python, Simple with Explanation - LeetCode Discuss",
+              "id": 45
+            },
+            {
+              "favIconUrl": "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png",
+              "name": "My Drive - Google Drive",
+              "id": 48
+            },
+            {
+              "favIconUrl": "https://account.mongodb.com/static/images/favicon.ico",
+              "name": "Log in | MongoDB",
+              "id": 299
+            }
+          ]
         },
         {
           "id": 3,
@@ -25,7 +59,24 @@
           "desc": "Do pull ups frequently, hopefully I will be able to do a muscle up soon",
           "time": 83,
           "target": 100,
-          "src": "../images/brain4.png"
+          "src": "../images/brain4.png",
+          "tabs": [
+            {
+              "favIconUrl": "https://leetcode.com/favicon-notification-32x32.png",
+              "name": "(26) Python, Simple with Explanation - LeetCode Discuss",
+              "id": 45
+            },
+            {
+              "favIconUrl": "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png",
+              "name": "My Drive - Google Drive",
+              "id": 48
+            },
+            {
+              "favIconUrl": "https://account.mongodb.com/static/images/favicon.ico",
+              "name": "Log in | MongoDB",
+              "id": 299
+            }
+          ]
         },
         {
           "id": 4,
