@@ -203,12 +203,12 @@ export default {
       let tabs = await Chrome.tabs.query({});
       for(let index in tabs){
         let tab = tabs[index];
-        // console.log(tab);
         this.openTabsList.push(
           {
             name: tab.title, 
             id: tab.id, 
-            favIconUrl: tab.favIconUrl
+            favIconUrl: tab.favIconUrl,
+            url: tab.url
           }
         )
       }
@@ -268,7 +268,8 @@ export default {
           {
             name: tab.name, 
             id: tab.id, 
-            favIconUrl: tab.favIconUrl
+            favIconUrl: tab.favIconUrl,
+            url: tab.url
           }
         )
       }

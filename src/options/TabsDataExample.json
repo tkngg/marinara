@@ -1,0 +1,21 @@
+// Example Chrome Tab:
+{
+    "active": false,
+    "audible": false,
+    "autoDiscardable": true,
+    "discarded": false,
+    "favIconUrl": "https://github.githubassets.com/favicons/favicon.svg",
+    "height": 753,
+    "highlighted": false,
+    "id": 297,
+    "incognito": false,
+    "index": 2,
+    "mutedInfo": {"muted": false},
+    "pinned": false,
+    "selected": false,
+    "status": "complete",
+    "title": "GitHub - tkngg/node-express-mongoose-boilerplate: A boilerplate for building production-ready RESTful APIs using Node.js, Express, and Mongoose",
+    "url": "https://github.com/tkngg/node-express-mongoose-boilerplate",
+    "width": 1440,
+    "windowId": 295,
+}
